@@ -5,6 +5,8 @@ import useEmmet from '../../hooks/useEmmet';
 import judgeAPI from '../../utils/judgeAPI';
 import { ValidLanguages } from 'hooks/useLanguages';
 import LanguageSelector from 'components/LanguageSelector/LanguageSelector';
+import Button from 'components/core/Button/Button';
+import Shortcuts from 'components/Shortcuts/Shortcuts';
 
 const IDE = ({ defaultValue = '', initLanguage = 'javascript' }: IDE_Props) => {
 	const [source_code, setSourceCode] = useState<string | undefined>(defaultValue);
@@ -38,11 +40,12 @@ const IDE = ({ defaultValue = '', initLanguage = 'javascript' }: IDE_Props) => {
 
 	return (
 		<div>
-			<div className="flex gap-5">
-				<button onClick={runCode} disabled={!source_code}>
-					Run Code
-				</button>
+			<Shortcuts onEnter={runCode} onSave={() => console.log('File Saved ;)')} />
+			<div className="flex items-center justify-between gap-5 p-2">
 				<LanguageSelector value={language} onChange={setLanguage} />
+				<Button onClick={runCode} disabled={!source_code}>
+					Run Code
+				</Button>
 			</div>
 			<Editor
 				height="50vh"
