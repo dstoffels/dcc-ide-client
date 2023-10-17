@@ -7,17 +7,18 @@ import { ValidLanguages } from 'hooks/useLanguages';
 import LanguageSelector from 'components/LanguageSelector/LanguageSelector';
 import Button from 'components/core/Button/Button';
 import Shortcuts from 'components/Shortcuts/Shortcuts';
+import useMonaco from 'hooks/useMonaco';
 
-const IDE = ({ defaultValue = '', initLanguage = 'javascript' }: IDE_Props) => {
+const IDE = ({ defaultValue = '', initLanguage = 'javascript', expected_output }: IDE_Props) => {
 	const [source_code, setSourceCode] = useState<string | undefined>(defaultValue);
 	const [results, setResults] = useState<ResultObj | any>(null);
 	const [language, setLanguage] = useState(initLanguage);
 
-	useEffect(() => {
-		useEmmet();
-	}, []);
+	useEmmet();
 
 	const runCode = async () => {
+		const monaco = await useMonaco();
+
 		const fetchResults = async () => {
 			return await judgeAPI.get(
 				`http://localhost:2358/submissions/${response.data.token}?API_KEY=12345`,
@@ -67,6 +68,7 @@ export default IDE;
 interface IDE_Props {
 	defaultValue?: string;
 	initLanguage?: ValidLanguages[number];
+	expected_output?: string;
 }
 
 interface ResultObj {

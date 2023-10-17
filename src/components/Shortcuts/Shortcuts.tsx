@@ -1,9 +1,10 @@
 import { loader } from '@monaco-editor/react';
+import useMonaco from 'hooks/useMonaco';
 import { useEffect } from 'react';
 
 const Shortcuts = ({ onSave, onEnter }: ShortCutsProps) => {
 	const onEnterOverride = async () => {
-		const monaco = await loader.init().then((monaco) => monaco);
+		const monaco = await useMonaco();
 
 		monaco.editor.addEditorAction({
 			id: 'run-coded',
