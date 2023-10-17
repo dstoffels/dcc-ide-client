@@ -32,26 +32,17 @@ const HTML_IDE = ({}) => {
 	}, []);
 
 	return (
-		<div className="flex">
-			<div>
-				<h4>index.html</h4>
-				<Editor
-					value={html}
-					onChange={setHtml}
-					width="50vw"
-					height="50vh"
-					theme="vs-dark"
-					language="html"
-				/>
-				<h4>styles.css</h4>
-				<Editor
-					value={css}
-					onChange={setCss}
-					width="50vw"
-					height="50vh"
-					theme="vs-dark"
-					language="css"
-				/>
+		<div className="flex max-h-screen">
+			<div className="flex flex-col h-screen w-full">
+				<div className="h-1/2 overflow-clip">
+					<h4>index.html</h4>
+					<Editor value={html} onChange={setHtml} theme="vs-dark" language="html" />
+				</div>
+				<div className="h-1/2 overflow-clip">
+					<h4>styles.css</h4>
+
+					<Editor value={css} onChange={setCss} theme="vs-dark" language="css" />
+				</div>
 			</div>
 			<div className="h-screen w-full">
 				<iframe ref={iframeRef} id="preview" className="w-full h-full bg-white"></iframe>
